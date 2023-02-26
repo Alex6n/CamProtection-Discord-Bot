@@ -16,7 +16,7 @@ members_agreed = {}
 @client.event
 async def on_voice_state_update(member, before, after):
     # Testing 
-    ar = after.channel.permissions_for(after.channel.guild.default_role).connect
+    print(not after.channel.permissions_for(after.channel.guild.default_role).connect)
     return
 
     # Only monitor members in public channels (not AFK or private channels)

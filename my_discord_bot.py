@@ -53,6 +53,25 @@ async def on_voice_state_update(member, before, after):
             members_agreed.setdefault(after.channel.id, set()).add(member.id)
             await dm_channel.send(f'Thank you for confirming. You will be able to open camera in this public session. this prefrence will be dismissed when you leave the channel')
 
+@client.event
+async def on_guild_channel_update(before, after):
 
+    # Only monitor voice channels
+    if not isinstance(after, discord.VoiceChannel):
+        return
+
+    # Check if the channel is now public
+    if after.overwrites_for(after.guild.default_role).connect == None or after.permissions_for(after.guild.default_role).connect:
+        print(f'{after.name} was made public')
         
+        # Check if any members have their camera on
+        for member in after.members:
+            if member.voice.self_video:
+                print(f'{member.name} has their camera on in {after.name}')
+
+                # Move member to the AFK channel
+                await member.move_to(client.get_channel(afk_channel_id))
+                await member.move_to(before)
+
+
 client.run('ODA2ODE4OTgyMzM3NDQ1ODk5.GBS6wQ.mcnTW55-vucQ-Fpo2JCQ42XjYrxcKJP8qB6rVw')

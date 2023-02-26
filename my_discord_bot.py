@@ -15,9 +15,10 @@ members_agreed = {}
 
 @client.event
 async def on_voice_state_update(member, before, after):
-    
+
     # Remove member from the list of those who have agreed to open their camera in this channel
-    members_agreed.setdefault(before.channel.id, set()).discard(member.id)
+    if before.channel != after.channel:
+        members_agreed.setdefault(before.channel.id, set()).discard(member.id)
 
     # Only monitor members in public channels (not AFK or private channels)
     if after.channel.id == afk_channel_id or (not after.channel.permissions_for(after.channel.guild.default_role).connect and after.channel.overwrites_for(after.channel.guild.default_role).connect != None):
@@ -37,7 +38,7 @@ async def on_voice_state_update(member, before, after):
 
         # Send a warning message to the member
         dm_channel = await member.create_dm()
-        await dm_channel.send(f'WARNING: You have opened your camera in a public channel ({after.channel.name}). Please note that this channel is visible to all members of the server. Do you still want to proceed? (type \'yes\' to confirm)')
+        await dm_channel.send(f'**WARNING:** You have opened your camera in a public channel ({after.channel.name}). Please note that this channel is visible to all members of the server. Do you still want to proceed? (type **\'yes\'** to confirm)')
         
         # Wait for the member's response
         def check(message):
@@ -50,7 +51,7 @@ async def on_voice_state_update(member, before, after):
         else:
             # Add member to the list of those who have agreed to open their camera in this channel
             members_agreed.setdefault(after.channel.id, set()).add(member.id)
-            await dm_channel.send(f'Thank you for confirming. You will be able to open camera in this public session.')
+            await dm_channel.send(f'Thank you for confirming. You will be able to open camera in this public session. this prefrence will be dismissed when you leave the channel')
 
 
         

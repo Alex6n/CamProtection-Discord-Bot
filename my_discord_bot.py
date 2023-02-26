@@ -13,6 +13,9 @@ members_agreed = {}
 
 @client.event
 async def on_voice_state_update(member, before, after):
+    # Testing 
+    print(after.channel.overwrites_for(after.channel.guild.default_role))
+    return
 
     # Only monitor members in public channels (not AFK or private channels)
     if not isinstance(member, discord.Member) or not isinstance(after.channel, discord.VoiceChannel):

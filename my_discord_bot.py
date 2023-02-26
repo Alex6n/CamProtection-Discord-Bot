@@ -15,15 +15,10 @@ members_agreed = {}
 
 @client.event
 async def on_voice_state_update(member, before, after):
-    # Testing 
-    print(not after.channel.permissions_for(after.channel.guild.default_role).connect)
-    return
-
     # Only monitor members in public channels (not AFK or private channels)
-    if not isinstance(member, discord.Member) or not isinstance(after.channel, discord.VoiceChannel):
+    if after.channel.id == afk_channel_id or (not after.channel.permissions_for(after.channel.guild.default_role).connect and after.channel.overwrites_for(after.channel.guild.default_role).connect != None):
         return
-    if after.channel.id == afk_channel_id:
-        return
+
     # Check if the member opened their camera
     if after.self_video:
         print(f'{member.name} opened their camera in {after.channel.name}')

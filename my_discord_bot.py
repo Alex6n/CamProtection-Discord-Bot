@@ -66,6 +66,11 @@ async def on_guild_channel_update(before, after):
         
         # Check if any members have their camera on
         for member in after.members:
+
+            # Check if the channel ID is not None and the member has agreed to open their camera in this channel
+            if after.id and member.id in members_agreed.get(after.id, []):
+                return
+
             if member.voice.self_video:
                 print(f'{member.name} has their camera on in {after.name}')
 

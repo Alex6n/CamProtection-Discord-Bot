@@ -1,4 +1,4 @@
-//require('dotenv/config');
+require('dotenv/config');
 const token = require('./secrets.json').token;
 const { Client, GatewayIntentBits } = require("discord.js");
 const client = new Client({
@@ -7,9 +7,10 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildVoiceStates
 ]});
 
-//const client = new Client({ intents: 32767 });
+
 const camProtection = require("./functions/cam_protection");
 const cfbot = require("./functions/cfbot.js");
 const gate = require("./functions/rolecommands.js");
@@ -30,5 +31,5 @@ camProtection(client);
 cfbot(client);
 gate(client);
 
-client.login(token);
-//client.login(process.env.TOKEN);
+
+client.login(process.env.TOKEN);

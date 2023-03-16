@@ -1626,6 +1626,23 @@ module.exports = function cfbot(client) {
 			}
 		}
 
+		if(command === "getbans") {
+			(async () => {
+				const fetch = await import('node-fetch');
+				const msg = await message.channel.send({ embeds: [embeds.loadingEmbed] });
+
+				setTimeout(async () => {
+					const listOfMembers = await functions.getDatabase();
+					const ids = listOfMembers.map(member => member.id).join(' ');
+					fs.writeFile('test.json', JSON.stringify(ids), 'utf8', (err) => { 
+							if (err) throw err;
+					});
+					msg.delete();
+					await message.channel.send({ embeds: [embeds.databaseUpdated] })
+				}, 1000);
+			})();
+		}
+
 		if(command === "help") {
 			if (!message.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
 				(async () => {

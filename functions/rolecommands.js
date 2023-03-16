@@ -9,16 +9,16 @@ module.exports = function camProtection(client) {
     if (!message.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) return;
 
 
-    const publicRole = "1082508881969811526";
-    const publicChannel = "1079879339807617115";
-    const selfRolesChannel = "1082512816919040021";
+    const publicRole = "1006988312461967505";
+    const publicChannel = "1023332490083041330";
+    const selfRolesChannel = "1006988314231975984";
     const thumbnail = "https://images-ext-1.discordapp.net/external/U5pNSth_4INz7XZvnSBXG_ocCqC0b8TXBWggMkt27e0/%3Fwidth%3D256%26s%3D72e46a461e4f4d2154c78919c480b699f5db0b08/https/styles.redditmedia.com/t5_3ip0zv/styles/communityIcon_vpoeeufipn391.png";
     const redditUrl = "https://www.reddit.com/r/ExEgypt/";
-    const aboutUsChannel = "1052910415211921418";
-    const redditFeedChannel = "1052910415211921419";
-    const memberRole = "1082534083567042600";
-    const allyRole = "1082534115322110043";
-    const lobbyChannel = "1082535122592616489";
+    const aboutUsChannel = "1006988314231975978";
+    const redditFeedChannel = "1023372285224165446";
+    const memberRole = "1006988312461967507";
+    const allyRole = "1006988312461967506";
+    const lobbyChannel = "1006988314563334163";
 
     const embed = new EmbedBuilder()
         .setColor(0x8E0909)
@@ -95,17 +95,14 @@ module.exports = function camProtection(client) {
         let type = args[1]?.toLowerCase(); // Ally | Member
 
         if(type === undefined) {
-          message.reply("no user or incorrect usage 0");
           return;
         }
 
         if(args.length === 0 || args.length > 2) {
-          message.reply("no user or incorrect usage 1");
           return;
         }
 
         if(type !== "ally" && type !== "member") {
-          message.reply("no user or incorrect usage 2");
           return;
         }
 
